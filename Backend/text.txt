@@ -1,0 +1,5 @@
+1 - Structure all Files & Folders            
+2 - install dependencies            
+3 - Write a Code          
+4 - Check & Debug     
+5 - Go to Frontend              
