@@ -5,6 +5,16 @@
 /* @tailwind utilities; */
 
 
+html.light {
+  background: #ffffff;
+  color: #000000;
+}
+
+html.dark {
+  background: #111827;
+  color: #ffffff;
+}
+
 @keyframes gradient {
     0% {
       background-position: 0% 50%;
@@ -22,3 +32,7 @@
     animation: gradient 8s ease infinite;
   }
   
+::selection {
+   background-color: #000307; 
+   color: #ffffff;
+}

@@ -12,16 +12,17 @@ const userSchema = new mongoose.Schema( {
     required: true,
     unique: true
   },
-  mobile: {
-    type: String,
-    required: true
-  },
   password: {
     type: String,
     required: true
   },
-  amount: {
+  number: {
     type: String,
+
+  },
+  profilePic: {
+    type: String,
+    default : "", 
   },
 
 },{timeseries : true})

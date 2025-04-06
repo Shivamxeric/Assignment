@@ -19,7 +19,7 @@ export const sendEmail = async (recipientEmail) => {
       <body>
         <h1 style="color: #3498db;">Welcome to Sukuyomi!</h1>
         <p style="font-size: 16px; color: #2c3e50;">We are excited to have you on board!</p>
-        <p style="font-size: 16px;">Here is an image to greet you:</p>
+        <p style="font-size: 16px;">Here is image:</p>
         <img src="${imageUrl}" alt="Greeting Image" style="width: 100%; max-width: 600px;" />
       </body>
     </html>

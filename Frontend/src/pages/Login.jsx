@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { Mail, Lock, LogIn, UserPlus, Key } from "lucide-react";
 
@@ -9,19 +10,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+ const { setAuthUser } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, { email, password });
       console.log(response.data); // Handle login success
       toast.success("Login Successfully");
+      const data =  response.data;
+      localStorage.setItem("auth-user", JSON.stringify(data));
+      setAuthUser(data);
+
       setTimeout(() => {
         navigate("/"); // Navigate to the homepage
-      }, 2000); // Redirect after 2 seconds
+      }, 1500); // Redirect after 2 seconds
     } catch (err) {
-      toast.error("Invalid credentials");
+      toast.error("Invalid credentials"); 
     } finally {
       setIsLoading(false);
     }
@@ -30,7 +36,9 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 via-indigo-300 to-purple-400">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl transition-all duration-300 transform hover:scale-105">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Login</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+          Login
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email Input */}
@@ -63,7 +71,9 @@ const Login = () => {
           <button
             type="submit"
             className={`w-full py-3 flex items-center justify-center ${
-              isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-800"
+              isLoading
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-800"
             } text-white rounded-full transition`}
             disabled={isLoading}
           >

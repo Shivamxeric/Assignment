@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 import {
   FaUser,
   FaEnvelope,
   FaLock,
   FaPhone,
-  FaDollarSign,
   FaSignInAlt,
   FaQuestionCircle,
 } from "react-icons/fa";
@@ -18,12 +18,12 @@ const Signup = () => {
     fullName: "",
     email: "",
     password: "",
-    amount: "",
-    mobile: "",
+    number: "",
   });
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setAuthUser } = useAuthContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,14 +43,19 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:3000/api/auth/signup", formData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/signup`, formData);
+      const data = response.data;
+
       toast.success("Signup successful! Redirecting to login...");
+      localStorage.setItem("auth-user", JSON.stringify(data));
+      setAuthUser(data);
+
       setTimeout(() => {
         setLoading(false);
         navigate("/login");
       }, 1500);
     } catch (error) {
-      toast.error("Error occurred during signup. Please try again.");
+      toast.error(error.response?.data?.message || "Error occurred during signup. Please try again.");
       console.error("Signup error:", error);
       setLoading(false);
     }
@@ -92,7 +97,7 @@ const Signup = () => {
               required
             />
           </div>
-
+      
           {/* Password */}
           <div className="mb-4 flex items-center border-b-2 border-gray-300">
             <FaLock className="text-xl text-gray-500 mr-3" />
@@ -107,33 +112,16 @@ const Signup = () => {
             />
           </div>
 
-          {/* Amount */}
-          <div className="mb-4 flex items-center border-b-2 border-gray-300">
-            <FaDollarSign className="text-xl text-gray-500 mr-3" />
-            <input
-              type="number"
-              name="amount"
-              className="w-full p-3 bg-transparent outline-none"
-              placeholder="Donated Amount"
-              value={formData.amount}
-              onChange={handleChange}
-              minLength={99}
-              required
-            />
-          </div>
-
-          {/* Mobile */}
+          {/* Number */}
           <div className="mb-4 flex items-center border-b-2 border-gray-300">
             <FaPhone className="text-xl text-gray-500 mr-3" />
             <input
-              type="text"
-              name="mobile"
+              type="number"
+              name="number"
               className="w-full p-3 bg-transparent outline-none"
-              placeholder="Mobile No."
-              value={formData.mobile}
+              placeholder="Number"
+              value={formData.number}
               onChange={handleChange}
-              maxLength={10}
-              minLength={10}
               required
             />
           </div>
