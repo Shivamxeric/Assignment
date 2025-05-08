@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, User, LogOut, Menu, X, PhoneCall } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Home, User, Menu, X, PhoneCall, NotebookPen } from 'lucide-react'; // Added NotebookPen for services icon
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuthContext } from '../context/AuthContext';
+import logo from "./logo.jpg"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-  const { authUser, setAuthUser } = useAuthContext();
-
-  const handleLogout = async () => {
-    localStorage.removeItem("auth-user");
-    setAuthUser(null);
-    navigate("/login");
-  };
 
   const navLinks = [
     { to: '/', label: 'Home', icon: <Home size={18} /> },
     { to: '/about', label: 'About', icon: <User size={18} /> },
+    { to: '/services', label: 'Services', icon: <NotebookPen size={18} /> }, // ✅ Added
     { to: '/contact', label: 'Contact', icon: <PhoneCall size={18} /> },
   ];
 
@@ -26,18 +19,21 @@ const Header = () => {
     <header className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-md px-6 py-3">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
 
-        {/* Left - Logo and Username */}
-        <div className="flex items-center gap-4 text-xl font-bold tracking-wide">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-blue-600">🌐</span>
-            <span>My WebApp</span>
-          </Link>
-          {authUser?.user?.username && (
-            <span className="text-sm font-medium text-gray-700">
-              Welcome, {authUser.user.username}
-            </span>
-          )}
-        </div>
+        {/* Left - Logo */}
+{/* Left - Logo */}
+<div className="flex items-center gap-3">
+  <Link to="/" className="flex items-center gap-3 text-blue-700 font-extrabold text-2xl tracking-tight">
+    <img
+      className="h-10 w-10 rounded-full shadow-md ring-2 ring-blue-500 object-cover"
+      src={logo}
+      alt="logo"
+    />
+    <span className="bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+      STUDYSPHERE
+    </span>
+  </Link>
+</div>
+
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6 text-lg items-center">
@@ -52,12 +48,6 @@ const Header = () => {
               {icon} {label}
             </Link>
           ))}
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-1 text-red-600 hover:underline transition"
-          >
-            <LogOut size={18} /> Logout
-          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -88,15 +78,6 @@ const Header = () => {
                 {icon} {label}
               </Link>
             ))}
-            <button
-              onClick={() => {
-                setMenuOpen(false);
-                handleLogout();
-              }}
-              className="flex items-center gap-2 text-lg text-red-600 hover:underline transition"
-            >
-              <LogOut size={18} /> Logout
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

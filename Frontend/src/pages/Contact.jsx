@@ -1,13 +1,15 @@
 import React from 'react';
-import contactImage from './Contact.png';
+import contactImage from './contact.png';
 import HeaderTwo from './Header';
 import Footer from './Footer';
 import { PhoneCall, Mail, MessageCircle } from 'lucide-react';
 
+
+
 const Contact = () => { 
   return (
     <>
-      <HeaderTwo />
+      <HeaderTwo  /> 
 
       <section className="min-h-screen pt-24 px-4 py-12 bg-gradient-to-b from-white to-blue-50">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
@@ -28,9 +30,9 @@ const Contact = () => {
               a <strong>student working on assignments</strong>, or a foreign learner — we're here to support you!
             </p>
             <div className="space-y-3 text-gray-800 text-md">
-              <p>📍 Location: Faridabad, Haryana</p>
+              <p>📍 Location: UK, USA, Germany, Paris, NewZeland, Canada  </p>
               <p>📞 Phone: <a className="text-blue-600 hover:underline" href="tel:+919582516409">+91 70673 41687</a></p>
-              <p>📧 Email: <a className="text-blue-600 hover:underline" href="mailto:jhashivam884@gmail.com">jhashivam884@gmail.com</a></p>
+              <p>📧 Email: <a className="text-blue-600 hover:underline" href="mailto:studyspehere024@gmail.com">studyspehere024@gmail.com</a></p>
               <p>🌐 Portfolio: <a className="text-blue-600 hover:underline" href="https://github.com/shivamxeric" target="_blank" rel="noreferrer">shivamxeric</a></p>
             </div>
             <p className="text-gray-600">
@@ -53,10 +55,10 @@ const Contact = () => {
           {/* Email Card */}
           <div className="bg-white rounded-2xl shadow-xl p-6 text-center hover:scale-105 transition duration-300">
             <div className="flex justify-center mb-4 text-blue-600">
-              <Mail size={40} />
+              <Mail size={40} /> 
             </div>
             <h3 className="text-xl font-semibold mb-2">Email Us</h3>
-            <p className="text-gray-700"><a href="mailto:jhashivam884@gmail.com">jhashivam884@gmail.com</a></p>
+            <p className="text-gray-700"><a href="mailto:studyspehere024@gmail.com">studyspehere024@gmail.com</a></p>
           </div>
 
           {/* WhatsApp Card */}
@@ -65,7 +67,7 @@ const Contact = () => {
               <MessageCircle size={40} />
             </div>
             <h3 className="text-xl font-semibold mb-2">WhatsApp</h3>
-            <p className="text-gray-700">+91 70673 41687</p>
+            <p className="text-gray-700"><a  href="https://wa.me/917067341687">+91 70673 41687</a></p>
           </div>
         </div>
       </section>
